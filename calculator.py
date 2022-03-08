@@ -15,27 +15,27 @@ Font_Digits = ("Arial", 24, "bold")
 class Calculadora:
     def __init__(self):
 
-##Criando a janela usando a toolkit
+##create window using toolkit
         self.window = tk.Tk()
-##Tam da janela com a calculadora
+##window size
         self.window.geometry("375x667")
-##N permite o user mudar o Tam da calculadora
+##fix size
         self.window.resizable(None, None)
-##Nome da janela
+##window name
         self.window.title("Calculadora")
-##Cor Background
+##BG color
         self.window.configure(bg = 'black')
 
-##Criando displays
+##Starting displays
         self.total_expression = ""
         self.current_expression = ""
 
-##Display calculadora
+##calculator display
         self.display_frame = self.create_display_frame()
-##Label com a expressão e o valor total
+##label with total and current expressions
         self.total_label, self.label = self.create_display_labels()
 
-#Posicionamento no grid
+#grid
         self.digits={
             7: (1,1), 8: (1,2), 9:(1,3),
             4: (2,1), 5: (2,2), 6:(2,3),
@@ -43,7 +43,7 @@ class Calculadora:
             0: (4,2), ".": (4,1)
         }
 
-##Botão
+##button
         self.operations = {"/": "\u00F7", "*": "\u00D7", "-": "-", "+": "+"}
         self.buttons_frame = self.create_buttons_frame()
 
@@ -58,14 +58,14 @@ class Calculadora:
         self.create_square_button()
         self.create_root_button()
 
-#Criando os displays
+#creating displays
     def create_display_labels(self):
-##Label com o valor Total
+##label with total value
         total_label = tk.Label(self.display_frame, text = self.total_expression, anchor = tk.E, bg = Cor_Display,
                                fg = Cor_Label, padx = 24, font = Font_sml)
         total_label.pack(expand = True, fill = "both")
 
-##Label com a expressão
+##label with the expression
         label = tk.Label(self.display_frame, text=self.current_expression, anchor=tk.E, bg=Cor_Display,
                                fg=Cor_Label, padx=24, font=Font_lrg)
         label.pack(expand=True, fill="both")
@@ -74,17 +74,17 @@ class Calculadora:
 
 
     def create_display_frame(self):
-##Tamanho e BG do display
+##display BG color and size
         frame = tk.Frame(self.window, bg = Cor_Display, height = 221)
         frame.pack(expand = True, fill = "both")
         return frame
 
-#add num ao display
+#add numbers
     def add_to_expression(self, value):
         self.current_expression += str(value)
         self.update_label()
 
-#Criando os botões, comando para adicionar o num ao display
+#command buttons
     def create_digit_buttons(self):
         for digit, grid_value in self.digits.items():
             button = tk.Button(self.buttons_frame, text = str(digit), bg = Cor_button, fg = Cor_Label,
@@ -94,12 +94,12 @@ class Calculadora:
     def append_operator(self, operator):
         self.current_expression += operator
         self.total_expression += self.current_expression
-#Limpa para o prox num
+#clean for next number
         self.current_expression = ""
         self.update_total_label()
         self.update_label()
 
-#Sinais
+#operators
     def create_operation_buttons(self):
         i = 0
         for operator,symbol in self.operations.items():
@@ -108,7 +108,7 @@ class Calculadora:
             button.grid(row = i, column = 4, sticky = tk.NSEW)
             i = i + 1
 
-#Limpar
+#clean
     def clear(self):
         self.total_expression = ""
         self.current_expression = ""
@@ -139,11 +139,11 @@ class Calculadora:
                                command = self.square)
             button.grid(row = 0, column = 2, columnspan = 1, sticky = tk.NSEW)
 
-#Igual
+#equals
     def evaluate(self):
         self.total_expression += self.current_expression
         self.update_total_label()
-##Se erro
+##iferror
         try:
 
             self.current_expression = str(eval(self.total_expression))
