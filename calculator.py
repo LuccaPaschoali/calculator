@@ -155,7 +155,7 @@ class Calculadora:
             self.update_label()
 
     def create_equal_button(self):
-        for operator,symbol in self.operations.items():
+        for _,_ in self.operations.items():
             button = tk.Button(self.buttons_frame, text = "=", bg = Cor_button_op, fg = Cor_Label, font = Font_def,
                                command = self.evaluate)
             button.grid(row = 4, column = 3, columnspan = 2, sticky = tk.NSEW)
